@@ -184,9 +184,6 @@ func GetSubprocessOutput(argv **C.char, argc, raise int) *C.PyObject {
 	runningProcesses.Add(cmdKey, cmd)
 	defer runningProcesses.Remove(cmdKey)
 
-	glock := C.PyGILState_Ensure()
-	defer C.PyGILState_Release(glock)
-
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		glock := RestoreThreadStateAndLock(threadState)
