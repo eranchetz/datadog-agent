@@ -180,7 +180,7 @@ func GetSubprocessOutput(argv **C.char, argc, raise int) *C.PyObject {
 	}
 	cmd := exec.Command(subprocessCmd, subprocessArgs...)
 
-	cmdKey := fmt.Sprintf("%s-%v", cmd, time.Now().UnixNano())
+	cmdKey := fmt.Sprintf("%s-%v", cmd.Path, time.Now().UnixNano())
 	runningProcesses.Add(cmdKey, cmd)
 	defer runningProcesses.Remove(cmdKey)
 
